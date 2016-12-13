@@ -1,0 +1,6 @@
+*.DS_Store
+dist/
+node_modules/
+elm-stuff/
+yarn.lock
+yarn-error.log
