@@ -2,7 +2,7 @@ module Main.Types exposing (..)
 
 import Pages.Home as Home
 import Pages.About as About
-import Pages.Details.Models as Details
+import Pages.Details.Types as Details
 import Navigation exposing (Location)
 
 

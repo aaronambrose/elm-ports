@@ -1,6 +1,6 @@
 port module Main.Ports exposing (..)
 
-import Pages.Details.Models exposing (Post)
+import Pages.Details.Types exposing (Post)
 
 
 port initChart : ( String, List Post ) -> Cmd msg

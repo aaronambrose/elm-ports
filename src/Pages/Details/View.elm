@@ -3,7 +3,7 @@ port module Pages.Details.View exposing (..)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
-import Pages.Details.Models exposing (Model, Msg(..))
+import Pages.Details.Types exposing (Model, Msg(..))
 
 
 view : Model -> Html Msg

@@ -2,7 +2,9 @@ module Main.Models exposing (..)
 
 import Pages.Home as Home
 import Pages.About as About
-import Pages.Details.Models as Details
+import Pages.Details.Types as Details
+import Pages.Details.Models as DetailsModels
+import Pages.Details.Update as DetailsUpdate
 import Main.Types exposing (Route(..), Msg(..))
 import Navigation exposing (Location)
 import Main.Routing exposing (parseLocation)
@@ -28,9 +30,13 @@ init location =
         cmd =
             case currentRoute of
                 DetailsRoute ->
-                    Cmd.map DetailsMsg Details.pageInit
+                    Cmd.batch
+                        [ Cmd.map DetailsMsg DetailsUpdate.pageInit
+                          -- , Cmd.map DetailsMsg DetailsUpdate.pageChange
+                        ]
 
                 _ ->
+                    -- Cmd.batch [ Cmd.map DetailsMsg DetailsUpdate.pageChange ]
                     Cmd.none
     in
         ( initialModel currentRoute, cmd )
@@ -46,7 +52,7 @@ initialModel route =
             About.init
 
         ( detailsInitModel, detailsCmd ) =
-            Details.init
+            DetailsModels.init
     in
         { home = homeInitModel
         , about = aboutInitModel
@@ -62,9 +68,5 @@ initialModel route =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ Details.subscriptions model.details |> Sub.map DetailsMsg
+        [ DetailsModels.subscriptions model.details |> Sub.map DetailsMsg
         ]
-
-
-
--- Window.resizes (\{ height, width } -> Resize height width)

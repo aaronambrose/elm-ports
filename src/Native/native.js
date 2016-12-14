@@ -11,6 +11,7 @@ function NativeApp(app) {
   });
 
   app.ports.initChart.subscribe(function([id, data]) {
+    console.log('initChart -----');
     if(document.getElementById(id).innerHTML === '') {
       content = {};
       content.chart = Chart({id, data});
