@@ -2,11 +2,11 @@ module Pages.Details.Models exposing (..)
 
 import Json.Decode as JD exposing (field)
 import Http
+import Window exposing (..)
 
 
 type Msg
-    = InitPage
-    | RemoveChart
+    = Resize Int Int
     | GetChartData
     | OnFetchChartData (Result Http.Error (List Post))
     | NoOp
@@ -25,6 +25,10 @@ type alias Post =
 type alias Model =
     { name : String
     , chartData : List Post
+    , screen :
+        { width : Int
+        , height : Int
+        }
     }
 
 
@@ -32,6 +36,10 @@ initModel : Model
 initModel =
     { name = "Details Page"
     , chartData = []
+    , screen =
+        { width = 0
+        , height = 0
+        }
     }
 
 
@@ -70,3 +78,8 @@ postDecoder =
     JD.map2 Post
         (field "date" JD.string)
         (field "close" JD.float)
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Window.resizes (\{ height, width } -> Resize height width)

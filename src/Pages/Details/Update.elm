@@ -19,16 +19,8 @@ update msg model =
         OnFetchChartData (Err _) ->
             ( model, Cmd.none )
 
-        InitPage ->
-            ( model, initChart ( "chart", model.chartData ) )
-
-        RemoveChart ->
-            ( model, removeChart "chart" )
+        Resize w h ->
+            ( { model | screen = { width = w, height = h } }, updateChartSize "update" )
 
         NoOp ->
             ( model, Cmd.none )
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none

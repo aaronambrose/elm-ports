@@ -11,6 +11,5 @@ view model =
     div [ class "main" ]
         [ div [] [ text model.name ]
         , div [ id "chart" ] []
-        , div [ onClick RemoveChart ] [ text "remove chart" ]
         , div [ onClick GetChartData ] [ text "get chart data" ]
         ]

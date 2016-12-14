@@ -8,7 +8,6 @@ import Navigation exposing (Location)
 
 type Msg
     = OnLocationChange Location
-    | Resize Int Int
     | HomeMsg Home.Msg
     | AboutMsg About.Msg
     | DetailsMsg Details.Msg

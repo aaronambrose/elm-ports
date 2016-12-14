@@ -89,8 +89,9 @@ export function Chart(options) {
   drawLine(svg, data, axes, isEmpty);
 
   return {
-    updateSize: function ({w, h}) {
+    updateSize: function () {
       let isEmpty = (element.innerHTML === '');
+      if(isEmpty) return;
       svg = getSVG(opts.id, element, isEmpty);
       scale = createScale(svg, data);
       axes = renderAxes(svg, data, scale, isEmpty);

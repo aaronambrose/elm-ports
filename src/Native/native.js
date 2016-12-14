@@ -1,20 +1,27 @@
 import {Chart} from './chart';
 import * as d3 from "d3";
 
-
-let chart = undefined;
+var content = null;
 
 function NativeApp(app) {
-  app.ports.initChart.subscribe(function([id, data]) {
 
+  // remove any data from previous page
+  app.ports.pageChangePort.subscribe(function(id) {
+    content = null;
+  });
+
+  app.ports.initChart.subscribe(function([id, data]) {
     if(document.getElementById(id).innerHTML === '') {
-      chart = Chart({id, data});
-    } else {
-      chart.updateSize({w: 400, h: 200});
+      content = {};
+      content.chart = Chart({id, data});
     }
   });
-  app.ports.removeChart.subscribe(function(divId) {
-    console.log('removeChart: divId: ', divId);
+  app.ports.updateChartSize.subscribe(function() {
+
+    // TODO: clean this mess up
+    if(content == null) return;
+    var {chart} = content;
+    if(chart) chart.updateSize();
   });
 
 }

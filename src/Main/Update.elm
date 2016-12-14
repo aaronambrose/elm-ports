@@ -3,6 +3,7 @@ module Main.Update exposing (..)
 import Main.Models exposing (Model)
 import Main.Routing exposing (parseLocation)
 import Main.Types exposing (Msg(..), Route(..))
+import Main.Ports exposing (..)
 import Pages.Home as Home
 import Pages.About as About
 import Pages.Details.Update as Details
@@ -16,9 +17,6 @@ import Navigation
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Resize w h ->
-            ( { model | screen = { width = w, height = h } }, Cmd.none )
-
         ChangePage page ->
             ( model, Navigation.newUrl page )
 
@@ -57,9 +55,9 @@ update msg model =
                 cmd =
                     case newRoute of
                         DetailsRoute ->
-                            Cmd.map DetailsMsg pageInit
+                            Cmd.batch [ Cmd.map DetailsMsg pageInit, pageChangePort () ]
 
                         _ ->
-                            Cmd.none
+                            pageChangePort ()
             in
                 ( { model | route = newRoute }, cmd )

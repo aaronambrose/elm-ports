@@ -6,7 +6,6 @@ import Pages.Details.Models as Details
 import Main.Types exposing (Route(..), Msg(..))
 import Navigation exposing (Location)
 import Main.Routing exposing (parseLocation)
-import Window exposing (..)
 
 
 -- model
@@ -17,10 +16,6 @@ type alias Model =
     , about : About.Model
     , details : Details.Model
     , route : Route
-    , screen :
-        { width : Int
-        , height : Int
-        }
     }
 
 
@@ -57,10 +52,6 @@ initialModel route =
         , about = aboutInitModel
         , details = detailsInitModel
         , route = route
-        , screen =
-            { height = 0
-            , width = 0
-            }
         }
 
 
@@ -70,4 +61,10 @@ initialModel route =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Window.resizes (\{ height, width } -> Resize height width)
+    Sub.batch
+        [ Details.subscriptions model.details |> Sub.map DetailsMsg
+        ]
+
+
+
+-- Window.resizes (\{ height, width } -> Resize height width)
