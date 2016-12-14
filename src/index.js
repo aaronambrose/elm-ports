@@ -6,7 +6,7 @@ require( './styles/main.scss' );
 // Require index.html so it gets copied to dist
 require('./index.html');
 
-import {NativeApp} from './Native/native';
+import NativeApp from './Native/native';
 
 const Elm = require('./Main/Main.elm');
 const mountNode = document.getElementById('main');
